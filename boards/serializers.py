@@ -38,4 +38,15 @@ class UpdateTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ["is_hidden"]
-        
+
+
+class TaskListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ["description", "creation_date"]
+
+
+class OwnerTaskListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        exclude = ['board']
