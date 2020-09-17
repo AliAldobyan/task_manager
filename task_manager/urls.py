@@ -25,4 +25,8 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='api-login'),
     path('register/', views.Register.as_view(), name='api-register'),
     path('create/', views.CreateBoard.as_view(), name='api-create'),
+    path('boards/', views.ListBoard.as_view(), name='api-board'),
+    path('task/create/<int:board_id>/', views.AddTask.as_view(), name='api-add-task'),
+    path('task/update/<int:task_id>/', views.UpdateTask.as_view(), name='api-update-task'),
+
 ]

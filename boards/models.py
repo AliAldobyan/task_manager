@@ -12,3 +12,4 @@ class Task(models.Model):
 	creation_date = models.DateField(auto_now_add=True)
 	is_hidden = models.BooleanField()
 	is_done = models.BooleanField()
+	board = models.ForeignKey(Board, on_delete=models.CASCADE)

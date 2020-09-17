@@ -23,3 +23,19 @@ class CreateBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields = ['title']
+
+class ListBoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = "__all__"
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ["description", "is_hidden", "is_done"]
+
+class UpdateTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ["is_hidden"]
+        
