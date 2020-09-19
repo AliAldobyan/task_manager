@@ -29,7 +29,9 @@ urlpatterns = [
     path('create/', views.CreateBoard.as_view(), name='api-create'),
     path('boards/', views.ListBoard.as_view(), name='api-board'),
     path('tasks/<int:board_id>/', views.TaskListView.as_view(), name='api-task-list'),
-    path('task/create/<int:board_id>/', views.AddTask.as_view(), name='api-add-task'),
-    path('task/update/<int:task_id>/', views.UpdateTask.as_view(), name='api-update-task'),
+    path('task/<int:board_id>/create/', views.AddTask.as_view(), name='api-add-task'),
+    path('task/<int:task_id>/update/', views.UpdateTask.as_view(), name='api-update-task'),
+    path('task/<int:task_id>/delete/', views.DeleteTask.as_view(), name='api-delete-task'),
+    path('board/<int:board_id>/delete/', views.DeleteBoard.as_view(), name='api-delete-board'),
 
 ]
