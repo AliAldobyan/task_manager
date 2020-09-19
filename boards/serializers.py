@@ -53,6 +53,7 @@ class TaskListSerializer(serializers.ModelSerializer):
 
 	def get_tasks(self,obj):
 		return TaskSerializer(Task.objects.filter(board=obj, is_hidden=False), many=True).data
+		
 	def get_owner(self,obj):
 		return obj.owner.first_name
 
