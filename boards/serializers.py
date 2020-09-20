@@ -24,11 +24,16 @@ class CreateBoardSerializer(serializers.ModelSerializer):
 		model = Board
 		fields = ['title']
 
+class CreateTaskSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Task
+		fields = ["description", "is_hidden", "is_done"]
+
 
 class TaskSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Task
-		fields = ["description", "is_hidden", "is_done"]
+		fields = ["description", "creation_date", "is_done"]
 
 
 class ListBoardSerializer(serializers.ModelSerializer):
@@ -39,7 +44,9 @@ class ListBoardSerializer(serializers.ModelSerializer):
 		fields = ['title', 'owner', 'tasks']
 
 	def get_tasks(self,obj):
-		return TaskSerializer(Task.objects.filter(board=obj), many=True).data
+		if self.context['request'].user == obj.owner:
+			return TaskSerializer(Task.objects.filter(board=obj), many=True).data
+		return  TaskSerializer(Task.objects.filter(board=obj, is_hidden=False), many=True).data
 	def get_owner(self,obj):
 		return obj.owner.first_name
 
@@ -53,7 +60,7 @@ class TaskListSerializer(serializers.ModelSerializer):
 
 	def get_tasks(self,obj):
 		return TaskSerializer(Task.objects.filter(board=obj, is_hidden=False), many=True).data
-		
+
 	def get_owner(self,obj):
 		return obj.owner.first_name
 

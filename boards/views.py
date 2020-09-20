@@ -4,7 +4,7 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView, DestroyAPIView, CreateAPIView
 from .serializers import (RegisterSerializer, CreateBoardSerializer,
 						ListBoardSerializer, OwnerTaskListSerializer, TaskSerializer,
-						UpdateTaskSerializer, TaskListSerializer
+						UpdateTaskSerializer, TaskListSerializer, CreateTaskSerializer
 						)
 from .models import Board, Task
 from .permissions import IsBoardOwner, IsTaskOwner
@@ -45,8 +45,8 @@ class TaskListView(ListAPIView):
 
 
 class AddTask(CreateAPIView):
-	serializer_class = TaskSerializer
-	permission_classes = [IsBoardOwner]
+	serializer_class = CreateTaskSerializer
+	permission_classes = [IsTaskOwner]
 
 	def perform_create(self, serializer):
 		serializer.save(board_id=self.kwargs['board_id'])
